@@ -8,11 +8,11 @@ import com.victor.mc_cd_catalog.catalogs.infrastructure.repository.CatalogProduc
 import com.victor.mc_cd_catalog.product.domain.models.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -26,7 +26,7 @@ public class CatalogProductService implements AddProductToCatalog, FindCatalogPr
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     public List<CatalogProduct> findByTitleLike(String title, Pageable pageable) {
         return catalogProductRepository.findLikeTitle(title.toLowerCase(), pageable)
                 .getContent();

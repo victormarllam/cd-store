@@ -4,6 +4,8 @@ import com.victor.mc_cd_catalog.product.domain.models.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -20,13 +22,14 @@ import javax.persistence.*;
                 "WHERE " +
                 "(:title IS NULL OR lower(product.title) LIKE CONCAT('%',:title,'%'))"
 )
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class CatalogProduct {
     @Id
     private Integer id;
 
     @MapsId
     @JoinColumn(name = "id")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Product product;
 
     @Column
