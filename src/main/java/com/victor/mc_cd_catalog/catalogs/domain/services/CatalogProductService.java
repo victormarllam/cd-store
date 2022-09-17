@@ -26,7 +26,6 @@ public class CatalogProductService implements AddProductToCatalog, FindCatalogPr
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
     public List<CatalogProduct> findByTitleLike(String title, Pageable pageable) {
         return catalogProductRepository.findLikeTitle(title.toLowerCase(), pageable)
                 .getContent();

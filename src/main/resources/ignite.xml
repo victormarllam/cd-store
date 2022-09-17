@@ -30,9 +30,6 @@
                     <property name="name" value="com.victor.mc_cd_catalog.catalogs.domain.models.CatalogProduct"/>
                 </bean>
                 <bean parent="hibernateCache">
-                    <property name="name" value="com.victor.mc_cd_catalog.catalogs.domain.models.CatalogProduct.product"/>
-                </bean>
-                <bean parent="hibernateCache">
                     <property name="name" value="com.victor.mc_cd_catalog.product.domain.models.Product"/>
                 </bean>
 
