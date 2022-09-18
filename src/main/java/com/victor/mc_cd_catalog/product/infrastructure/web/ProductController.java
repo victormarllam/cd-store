@@ -31,16 +31,16 @@ public class ProductController {
         return productRepository.findAll();
     }
 
-    //TODO: Validations
-    //TODO: Pasar y devolver DTO's, para eso mete adapters y tal y así podrás argumentar tema capas
+    //TODO: Pass to DTO's
     @PostMapping
     public Product save(@RequestBody @Valid Product product) {
         return addProduct.addProduct(product);
     }
 
     @GetMapping("/{id}")
-    public Product save(@PathVariable Integer id) {
-        return productRepository.findById(id).orElse(null);
+    public Product getById(@PathVariable Integer id) {
+        return productRepository.findById(id)
+                .orElse(null);
     }
 
     @DeleteMapping("/{id}")

@@ -17,6 +17,7 @@ configurations {
 ext {
 	mapstructVersion = "1.4.1.Final"
 	h2Version = "1.4.197"
+	assertJVersion = "3.23.1"
 }
 
 repositories {
@@ -43,7 +44,7 @@ dependencies {
 	implementation 'org.apache.ignite:ignite-hibernate-core:2.13.0'
 	implementation 'org.apache.ignite:ignite-spring:2.13.0'
 
-
+	testImplementation "org.assertj:assertj-core:${assertJVersion}"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

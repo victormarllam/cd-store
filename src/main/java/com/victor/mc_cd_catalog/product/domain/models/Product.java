@@ -33,5 +33,8 @@ public class Product {
 
     @NotNull
     private ProductType productType;
-//    private List<String> genres;
+
+    public Product(int id) {
+        this.id = id;
+    }
 }

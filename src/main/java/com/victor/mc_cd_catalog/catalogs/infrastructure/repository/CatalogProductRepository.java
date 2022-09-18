@@ -16,5 +16,5 @@ public interface CatalogProductRepository extends PagingAndSortingRepository<Cat
     @QueryHints(
             @QueryHint(name = "org.hibernate.cacheable", value = "true")
     )
-    Page<CatalogProduct> findLikeTitle(String title, Pageable pageable);
+    Page<CatalogProduct> findByTitleLike(String title, Pageable pageable);
 }

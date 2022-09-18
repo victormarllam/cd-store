@@ -1,6 +1,5 @@
 package com.victor.mc_cd_catalog.catalogs.infrastructure.web.models;
 
-import com.victor.mc_cd_catalog.catalogs.domain.models.CatalogProduct;
 import lombok.Builder;
 import lombok.Value;
 
