@@ -1,8 +1,7 @@
 package com.victor.mc_cd_catalog.catalogs.domain.services;
 
 import com.victor.mc_cd_catalog.catalogs.domain.models.CatalogProduct;
-import com.victor.mc_cd_catalog.catalogs.domain.models.CatalogProductRequest;
-import com.victor.mc_cd_catalog.catalogs.infrastructure.repository.CatalogProductRepository;
+import com.victor.mc_cd_catalog.catalogs.domain.ports.outcoming.SaveCatalogProduct;
 import com.victor.mc_cd_catalog.product.domain.models.Product;
 import com.victor.mc_cd_catalog.product.infrastructure.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
@@ -28,38 +27,38 @@ class CatalogProductServiceTest {
     @Mock
     ProductRepository productRepository;
     @Mock
-    CatalogProductRepository catalogProductRepository;
+    SaveCatalogProduct saveCatalogProduct;
     @InjectMocks
     CatalogProductService tested;
 
     @Test
-    void Given_NonExistingProduct_When_AddProductToCatalog_Then_ThrowIllegalArgumentException() {
-        var anyCatalogProductRequest = createAnyCatalogProductRequest();
+    void Given_NonExistingProduct_When_CreateOrUpdateProductToCatalog_Then_ThrowIllegalArgumentException() {
+        var anyCatalogProduct = createAnyCatalogProduct();
         when(productRepository.findById(any())).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> tested.addProductToCatalog(anyCatalogProductRequest))
+        assertThatThrownBy(() -> tested.createOrUpdateProductToCatalog(anyCatalogProduct))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
-    void Given_ExistingProduct_When_AddProductToCatalog_Then_CatalogProductIsCreated() {
+    void Given_ExistingProduct_When_CreateOrUpdateProductToCatalog_Then_CatalogProductIsCreated() {
         var catalogProductArgumentCaptor = ArgumentCaptor.forClass(CatalogProduct.class);
         var anyProduct = createAnyProduct();
-        var anyCatalogProductRequest = createAnyCatalogProductRequest();
+        var anyCatalogProduct = createAnyCatalogProduct();
         when(productRepository.findById(any())).thenReturn(Optional.of(anyProduct));
 
-        tested.addProductToCatalog(anyCatalogProductRequest);
+        tested.createOrUpdateProductToCatalog(anyCatalogProduct);
 
-        verify(catalogProductRepository, times(1)).save(catalogProductArgumentCaptor.capture());
+        verify(saveCatalogProduct, times(1)).save(catalogProductArgumentCaptor.capture());
         var result = catalogProductArgumentCaptor.getValue();
 
         assertThat(result.getId()).isEqualTo(anyProduct.getId());
-        assertThat(result.getMoney()).isEqualTo(anyCatalogProductRequest.getMoney());
-        assertThat(result.getDiscount()).isEqualTo(anyCatalogProductRequest.getDiscount());
+        assertThat(result.getMoney()).isEqualTo(anyCatalogProduct.getMoney());
+        assertThat(result.getDiscount()).isEqualTo(anyCatalogProduct.getDiscount());
     }
 
-    private static CatalogProductRequest createAnyCatalogProductRequest() {
-        return new CatalogProductRequest(ANY_ID_PRODUCT, ANY_MONEY, ANY_DISCOUNT);
+    private static CatalogProduct createAnyCatalogProduct() {
+        return new CatalogProduct(ANY_ID_PRODUCT, ANY_MONEY,ANY_DISCOUNT);
     }
 
     private Product createAnyProduct() {

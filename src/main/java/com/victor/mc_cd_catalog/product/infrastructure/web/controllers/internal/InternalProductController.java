@@ -5,6 +5,7 @@ import com.victor.mc_cd_catalog.product.domain.use_cases.AddProduct;
 import com.victor.mc_cd_catalog.product.domain.use_cases.DeleteProduct;
 import com.victor.mc_cd_catalog.product.infrastructure.repository.ProductRepository;
 import com.victor.mc_cd_catalog.product.infrastructure.web.mappers.ProductMapper;
+import com.victor.mc_cd_catalog.product.infrastructure.web.model.ProductDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,10 +32,9 @@ public class InternalProductController {
         return productRepository.findAll();
     }
 
-    //TODO: Pass to DTO's
     @PostMapping
-    public Product save(@RequestBody @Valid Product product) {
-        return addProduct.addProduct(product);
+    public ProductDto save(@RequestBody @Valid Product product) {
+        return productMapper.toDto(addProduct.addProduct(product));
     }
 
     @GetMapping("/{id}")
