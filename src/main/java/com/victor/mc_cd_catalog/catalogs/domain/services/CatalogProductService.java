@@ -5,7 +5,9 @@ import com.victor.mc_cd_catalog.catalogs.domain.models.CatalogProductRequest;
 import com.victor.mc_cd_catalog.catalogs.domain.ports.incoming.AddProductToCatalog;
 import com.victor.mc_cd_catalog.catalogs.domain.ports.incoming.DeleteProductFromCatalog;
 import com.victor.mc_cd_catalog.catalogs.domain.ports.incoming.FindCatalogProduct;
-import com.victor.mc_cd_catalog.catalogs.infrastructure.repository.CatalogProductRepository;
+import com.victor.mc_cd_catalog.catalogs.domain.ports.outcoming.DeleteCatalogProduct;
+import com.victor.mc_cd_catalog.catalogs.domain.ports.outcoming.FindCatalogProductsByTitleLike;
+import com.victor.mc_cd_catalog.catalogs.domain.ports.outcoming.SaveCatalogProduct;
 import com.victor.mc_cd_catalog.product.infrastructure.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CatalogProductService implements AddProductToCatalog, FindCatalogProduct, DeleteProductFromCatalog {
     private final ProductRepository productRepository;
-    private final CatalogProductRepository catalogProductRepository;
+    private final DeleteCatalogProduct deleteCatalogProduct;
+    private final FindCatalogProductsByTitleLike findCatalogProductsByTitleLike;
+    private final SaveCatalogProduct saveCatalogProduct;
 
     @Override
     public CatalogProduct addProductToCatalog(CatalogProductRequest catalogProductRequest) {
@@ -28,17 +32,16 @@ public class CatalogProductService implements AddProductToCatalog, FindCatalogPr
         var catalogProduct = new CatalogProduct(product.getId(), product, catalogProductRequest.getMoney(),
                 catalogProductRequest.getDiscount());
 
-        return catalogProductRepository.save(catalogProduct);
+        return saveCatalogProduct.save(catalogProduct);
     }
 
     @Override
     public List<CatalogProduct> findByTitleLike(String title, Pageable pageable) {
-        return catalogProductRepository.findByTitleLike(title.toLowerCase(), pageable)
-                .getContent();
+        return findCatalogProductsByTitleLike.findByTitleLike(title.toLowerCase(), pageable);
     }
 
     @Override
     public void deleteProductFromCatalog(int id) {
-        catalogProductRepository.deleteById(id);
+        deleteCatalogProduct.deleteById(id);
     }
 }
