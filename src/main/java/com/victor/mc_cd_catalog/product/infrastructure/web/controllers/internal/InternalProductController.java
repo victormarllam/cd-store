@@ -1,4 +1,4 @@
-package com.victor.mc_cd_catalog.product.infrastructure.web;
+package com.victor.mc_cd_catalog.product.infrastructure.web.controllers.internal;
 
 import com.victor.mc_cd_catalog.product.domain.models.Product;
 import com.victor.mc_cd_catalog.product.domain.use_cases.AddProduct;
@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/internal/products")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class ProductController {
+public class InternalProductController {
     private final ProductMapper productMapper;
     private final AddProduct addProduct;
     private final DeleteProduct deleteProduct;
