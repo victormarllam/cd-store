@@ -1,4 +1,4 @@
-package com.victor.mc_cd_catalog.catalogs.infrastructure.web;
+package com.victor.mc_cd_catalog.catalogs.infrastructure.web.controllers.internal;
 
 import com.victor.mc_cd_catalog.catalogs.domain.models.CatalogProductRequest;
 import com.victor.mc_cd_catalog.catalogs.domain.ports.incoming.AddProductToCatalog;
@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/catalog-products")
+@RequestMapping("/internal/catalog-products")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class CatalogProductController {
+public class InternalCatalogProductController {
     private final AddProductToCatalog addProductToCatalog;
     private final DeleteProductFromCatalog deleteProductFromCatalog;
     private final CatalogProductMapper catalogProductMapper;

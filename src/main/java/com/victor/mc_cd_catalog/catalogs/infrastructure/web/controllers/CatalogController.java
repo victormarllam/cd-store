@@ -1,4 +1,4 @@
-package com.victor.mc_cd_catalog.catalogs.infrastructure.web;
+package com.victor.mc_cd_catalog.catalogs.infrastructure.web.controllers;
 
 import com.victor.mc_cd_catalog.catalogs.domain.ports.incoming.FindCatalogProduct;
 import com.victor.mc_cd_catalog.catalogs.infrastructure.web.mappers.CatalogProductMapper;
