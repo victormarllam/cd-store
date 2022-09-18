@@ -1,6 +1,7 @@
 package com.victor.mc_cd_catalog.catalogs.domain.models;
 
 import com.victor.mc_cd_catalog.product.domain.models.Product;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,11 +15,12 @@ import javax.persistence.*;
 @Getter
 @Cacheable
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "CatalogProduct")
 @NamedQuery(
         name = "CatalogProduct.findLikeTitle",
         query = "SELECT catalogProduct FROM " +
-                "CatalogProduct catalogProduct JOIN FETCH catalogProduct.product product " +
+                "CatalogProduct catalogProduct JOIN Product product ON product.id=catalogProduct.id " +
                 "WHERE " +
                 "(:title IS NULL OR lower(product.title) LIKE CONCAT('%',:title,'%'))"
 )
