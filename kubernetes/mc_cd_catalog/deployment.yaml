@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cd-store
+spec:
+  selector:
+    matchLabels:
+      app: cd-store
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cd-store
+    spec:
+      containers:
+        - name: cd-store
+          image: victor/cd-store
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cd-store
+spec:
+  ports:
+    - protocol: "TCP"
+      port: 8080    # Port inside the cluster
+      targetPort:   # Port exposed to the outside
+  selector:
+    app: cd-store
+  type: NodePort
