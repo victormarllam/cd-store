@@ -38,6 +38,11 @@ public class ProductController {
         return addProduct.addProduct(product);
     }
 
+    @GetMapping("/{id}")
+    public Product save(@PathVariable Integer id) {
+        return productRepository.findById(id).orElse(null);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Integer id) {
         deleteProduct.deleteProductById(id);

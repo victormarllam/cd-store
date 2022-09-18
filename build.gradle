@@ -28,13 +28,22 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	//Utils
 	compileOnly 'org.projectlombok:lombok'
 	implementation "com.h2database:h2:${h2Version}"
 	annotationProcessor 'org.projectlombok:lombok'
-
 	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
 	implementation "org.projectlombok:lombok-mapstruct-binding:0.1.0"
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+	//Hibernate Cache
+	implementation "org.springframework.boot:spring-boot-starter-cache"
+	implementation "org.hibernate:hibernate-jcache"
+	implementation 'org.apache.ignite:ignite-hibernate-core:2.13.0'
+	implementation 'org.apache.ignite:ignite-spring:2.13.0'
+
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
