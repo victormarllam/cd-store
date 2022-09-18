@@ -31,11 +31,17 @@ public class CatalogProduct {
 
     @MapsId
     @JoinColumn(name = "id")
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Product product;
 
     @Column
-    private int money; //change for the Martin model
+    private int money;
     @Column
-    private Integer discount; //validation from 0-100.
+    private Integer discount;
+
+    public CatalogProduct(int id, int money, Integer discount) {
+        this.id = id;
+        this.money = money;
+        this.discount = discount;
+    }
 }

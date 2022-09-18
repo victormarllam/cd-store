@@ -1,8 +1,7 @@
 package com.victor.mc_cd_catalog.catalogs.domain.services;
 
 import com.victor.mc_cd_catalog.catalogs.domain.models.CatalogProduct;
-import com.victor.mc_cd_catalog.catalogs.domain.models.CatalogProductRequest;
-import com.victor.mc_cd_catalog.catalogs.domain.ports.incoming.AddProductToCatalog;
+import com.victor.mc_cd_catalog.catalogs.domain.ports.incoming.CreateOrUpdateProductToCatalog;
 import com.victor.mc_cd_catalog.catalogs.domain.ports.incoming.DeleteProductFromCatalog;
 import com.victor.mc_cd_catalog.catalogs.domain.ports.incoming.FindCatalogProduct;
 import com.victor.mc_cd_catalog.catalogs.domain.ports.outcoming.DeleteCatalogProduct;
@@ -18,19 +17,18 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class CatalogProductService implements AddProductToCatalog, FindCatalogProduct, DeleteProductFromCatalog {
+public class CatalogProductService implements CreateOrUpdateProductToCatalog, FindCatalogProduct, DeleteProductFromCatalog {
     private final ProductRepository productRepository;
     private final DeleteCatalogProduct deleteCatalogProduct;
     private final FindCatalogProductsByTitleLike findCatalogProductsByTitleLike;
     private final SaveCatalogProduct saveCatalogProduct;
 
     @Override
-    public CatalogProduct addProductToCatalog(CatalogProductRequest catalogProductRequest) {
-        var product = productRepository.findById(catalogProductRequest.getIdProduct())
+    public CatalogProduct createOrUpdateProductToCatalog(CatalogProduct catalogProduct) {
+        var product = productRepository.findById(catalogProduct.getId())
                 .orElseThrow(IllegalArgumentException::new);
 
-        var catalogProduct = new CatalogProduct(product.getId(), product, catalogProductRequest.getMoney(),
-                catalogProductRequest.getDiscount());
+        catalogProduct.setProduct(product);
 
         return saveCatalogProduct.save(catalogProduct);
     }
