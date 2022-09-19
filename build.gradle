@@ -3,6 +3,8 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
 	id 'java'
 }
+apply plugin: 'application'
+mainClassName = 'com.victor.mc_cd_catalog.McCdCatalogApplication'
 
 group = 'com.victor'
 version = '0.0.1-SNAPSHOT'
