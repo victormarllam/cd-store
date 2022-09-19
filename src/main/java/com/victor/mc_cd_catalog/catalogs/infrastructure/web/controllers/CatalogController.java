@@ -23,7 +23,7 @@ public class CatalogController {
 
     @GetMapping
     public CatalogResponse getCatalog(@RequestParam String title,
-                                       @PageableDefault(value = PAGE_SIZE) Pageable pageable) {
+                                      @PageableDefault(value = PAGE_SIZE) Pageable pageable) {
         var catalogProducts = findCatalogProduct.findByTitleLike(title, pageable);
         return CatalogResponse.builder()
                 .page(pageable.getPageNumber())
