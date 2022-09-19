@@ -7,10 +7,9 @@ import com.victor.mc_cd_catalog.catalogs.domain.ports.outcoming.SaveCatalogProdu
 import com.victor.mc_cd_catalog.catalogs.infrastructure.repository.CatalogProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -25,9 +24,8 @@ public class CatalogProductRepositoryAdapter implements DeleteCatalogProduct, Fi
     }
 
     @Override
-    public List<CatalogProduct> findByTitleLike(String title, Pageable pageable) {
-        return catalogProductRepository.findByTitleLike(title, pageable)
-                .getContent();
+    public Page<CatalogProduct> findByTitleLike(String title, Pageable pageable) {
+        return catalogProductRepository.findByTitleLike(title, pageable);
     }
 
     @Override

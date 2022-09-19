@@ -22,13 +22,13 @@ public class CatalogController {
     private final CatalogProductMapper catalogProductMapper;
 
     @GetMapping
-    private CatalogResponse getCatalog(@RequestParam String title,
+    public CatalogResponse getCatalog(@RequestParam String title,
                                        @PageableDefault(value = PAGE_SIZE) Pageable pageable) {
         var catalogProducts = findCatalogProduct.findByTitleLike(title, pageable);
         return CatalogResponse.builder()
                 .page(pageable.getPageNumber())
-                .productCount(catalogProducts.size())
-                .catalogProducts(catalogProductMapper.toDto(catalogProducts))
+                .productCount(catalogProducts.getTotalElements())
+                .catalogProducts(catalogProductMapper.toDto(catalogProducts.getContent()))
                 .build();
     }
 }

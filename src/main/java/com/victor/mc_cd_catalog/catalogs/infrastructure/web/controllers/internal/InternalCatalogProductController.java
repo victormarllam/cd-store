@@ -4,10 +4,12 @@ import com.victor.mc_cd_catalog.catalogs.domain.ports.incoming.CreateOrUpdatePro
 import com.victor.mc_cd_catalog.catalogs.domain.ports.incoming.DeleteProductFromCatalog;
 import com.victor.mc_cd_catalog.catalogs.infrastructure.web.mappers.CatalogProductMapper;
 import com.victor.mc_cd_catalog.catalogs.infrastructure.web.models.CatalogProductDto;
-import com.victor.mc_cd_catalog.catalogs.infrastructure.web.models.CatalogProductRequest;
+import com.victor.mc_cd_catalog.catalogs.infrastructure.web.models.CatalogProductForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/internal/catalog-products")
@@ -19,9 +21,9 @@ public class InternalCatalogProductController {
     private final CreateOrUpdateProductToCatalog createOrUpdateProductToCatalog;
 
     @RequestMapping(method = {RequestMethod.PUT, RequestMethod.POST})
-    public CatalogProductDto addProductToCatalog(@RequestBody CatalogProductRequest catalogProductRequest) {
+    public CatalogProductDto addProductToCatalog(@RequestBody @Valid CatalogProductForm catalogProductForm) {
         var result = createOrUpdateProductToCatalog.createOrUpdateProductToCatalog(
-                catalogProductMapper.toEntity(catalogProductRequest));
+                catalogProductMapper.toEntity(catalogProductForm));
 
         return catalogProductMapper.toDto(result);
     }

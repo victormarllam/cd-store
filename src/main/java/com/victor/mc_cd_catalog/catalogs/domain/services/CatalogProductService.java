@@ -7,13 +7,13 @@ import com.victor.mc_cd_catalog.catalogs.domain.ports.incoming.FindCatalogProduc
 import com.victor.mc_cd_catalog.catalogs.domain.ports.outcoming.DeleteCatalogProduct;
 import com.victor.mc_cd_catalog.catalogs.domain.ports.outcoming.FindCatalogProductsByTitleLike;
 import com.victor.mc_cd_catalog.catalogs.domain.ports.outcoming.SaveCatalogProduct;
+import com.victor.mc_cd_catalog.product.domain.use_cases.exceptions.NonExistingProductException;
 import com.victor.mc_cd_catalog.product.infrastructure.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -26,7 +26,7 @@ public class CatalogProductService implements CreateOrUpdateProductToCatalog, Fi
     @Override
     public CatalogProduct createOrUpdateProductToCatalog(CatalogProduct catalogProduct) {
         var product = productRepository.findById(catalogProduct.getId())
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(NonExistingProductException::new);
 
         catalogProduct.setProduct(product);
 
@@ -34,7 +34,7 @@ public class CatalogProductService implements CreateOrUpdateProductToCatalog, Fi
     }
 
     @Override
-    public List<CatalogProduct> findByTitleLike(String title, Pageable pageable) {
+    public Page<CatalogProduct> findByTitleLike(String title, Pageable pageable) {
         return findCatalogProductsByTitleLike.findByTitleLike(title.toLowerCase(), pageable);
     }
 

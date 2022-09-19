@@ -29,8 +29,8 @@ public class Product {
     @Column
     @NotBlank
     private String title;
-    @Enumerated(EnumType.STRING)
 
+    @Enumerated(EnumType.STRING)
     @NotNull
     private ProductType productType;
 

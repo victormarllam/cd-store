@@ -2,7 +2,7 @@ package com.victor.mc_cd_catalog.catalogs.infrastructure.web.mappers;
 
 import com.victor.mc_cd_catalog.catalogs.domain.models.CatalogProduct;
 import com.victor.mc_cd_catalog.catalogs.infrastructure.web.models.CatalogProductDto;
-import com.victor.mc_cd_catalog.catalogs.infrastructure.web.models.CatalogProductRequest;
+import com.victor.mc_cd_catalog.catalogs.infrastructure.web.models.CatalogProductForm;
 import com.victor.mc_cd_catalog.product.infrastructure.web.mappers.ProductMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -18,6 +18,8 @@ import java.util.List;
 )
 public interface CatalogProductMapper {
     CatalogProductDto toDto(CatalogProduct catalogProduct);
+
     List<CatalogProductDto> toDto(List<CatalogProduct> catalogProducts);
-    CatalogProduct toEntity(CatalogProductRequest catalogProductRequest);
+
+    CatalogProduct toEntity(CatalogProductForm catalogProductForm);
 }
