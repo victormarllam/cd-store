@@ -9,6 +9,6 @@ import java.util.List;
 @Builder
 public class CatalogResponse {
     int page;
-    int productCount;
+    long productCount;
     List<CatalogProductDto> catalogProducts;
 }

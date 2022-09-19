@@ -3,6 +3,7 @@ package com.victor.mc_cd_catalog.catalogs.domain.services;
 import com.victor.mc_cd_catalog.catalogs.domain.models.CatalogProduct;
 import com.victor.mc_cd_catalog.catalogs.domain.ports.outcoming.SaveCatalogProduct;
 import com.victor.mc_cd_catalog.product.domain.models.Product;
+import com.victor.mc_cd_catalog.product.domain.use_cases.exceptions.NonExistingProductException;
 import com.victor.mc_cd_catalog.product.infrastructure.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,7 +38,7 @@ class CatalogProductServiceTest {
         when(productRepository.findById(any())).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> tested.createOrUpdateProductToCatalog(anyCatalogProduct))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(NonExistingProductException.class);
     }
 
     @Test
